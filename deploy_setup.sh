@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Variables
-APP_NAME=$1
-DEPLOYMENT_GROUP_NAME=$2
-INSTANCE_TAG_VALUE=$3
+APP_NAME="qdambucket"
+DEPLOYMENT_GROUP_NAME="AWSBootcamp2023"
+INSTANCE_TAG_VALUE="AutoDeploy"
 S3_BUCKET_NAME="${APP_NAME}-artifacts"
 INSTANCE_TAG_KEY="Name"
-ZIP_FILE_PATH=$4  # Path to the application package zip files
+ZIP_FILE_PATH="C:/Users/quyda/Documents/GitHub/referralapi-main.zip" # Path to the application package zip files
 
 # Check input
 if [[ -z $APP_NAME ]] || [[ -z $DEPLOYMENT_GROUP_NAME ]] || [[ -z $INSTANCE_TAG_VALUE ]] || [[ -z $ZIP_FILE_PATH ]]; then
@@ -16,7 +16,7 @@ fi
 
 # Create S3 bucket if it doesn't exist
 if ! aws s3 ls "s3://$S3_BUCKET_NAME" &> /dev/null ; then
-    aws s3api create-bucket --bucket $S3_BUCKET_NAME --region us-west-1
+    aws s3api create-bucket --bucket $S3_BUCKET_NAME --region us-east-1
     echo "S3 bucket $S3_BUCKET_NAME created."
 fi
 

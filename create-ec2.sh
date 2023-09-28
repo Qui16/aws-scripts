@@ -2,7 +2,7 @@
 
 # Variables
 REGION="us-east-1"
-INSTANCE_NAME="YourInstanceName" # Replace with your desired instance name
+INSTANCE_NAME="AutoDeploy" # Replace with your desired instance name
 AMI_ID="ami-08a52ddb321b32a8c"
 INSTANCE_TYPE="t2.micro"
 KEY_NAME="mybootcamp-key"
@@ -36,6 +36,10 @@ aws iam put-role-policy --role-name $IAM_ROLE_NAME --policy-name CodeDeploy-EC2 
     }
   ]
 }' || echo "Policy might already be attached or encountered an error."
+
+# Create Instance Profile
+aws iam create-instance-profile --instance-profile-name $IAM_ROLE_NAME
+aws iam add-role-to-instance-profile --instance-profile-name $IAM_ROLE_NAME --role-name $IAM_ROLE_NAME
 
 # Launch EC2 Instance
 aws ec2 run-instances \
